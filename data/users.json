@@ -1,0 +1,24 @@
+[
+  {
+    "id": 1,
+    "firstname": "Jin",
+    "lastname": "Thompson",
+    "nationalCode": "10",
+    "birthdate": "1986-08-03"
+  },
+  {
+    "id": 2,
+    "firstname": "Palmer",
+    "lastname": "Lancaster",
+    "nationalCode": "74",
+    "birthdate": "1987-05-23"
+  },
+
+  {
+    "id": 3,
+    "firstname": "Geraldine",
+    "lastname": "Duke",
+    "nationalCode": "81",
+    "birthdate": "2015-07-20"
+  }
+]

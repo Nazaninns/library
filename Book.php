@@ -7,9 +7,17 @@ class Book
     /**
      * @return string
      */
-    public function getUCode(): string
+    public  function getUCode(): string
     {
         return $this->uCode;
+    }
+
+    /**
+     * @param int $vendor
+     */
+    public  function setVendor(int $vendor): void
+    {
+        $this->vendor = $vendor;
     }
 
     /**
@@ -43,5 +51,4 @@ class Book
     {
         return $this->vendor;
     }
-
 }

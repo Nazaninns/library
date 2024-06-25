@@ -5,6 +5,7 @@ require_once 'Book.php';
 class Operator
 {
 
+
     public function createUser(): User|string
     {
         try {
@@ -18,12 +19,18 @@ class Operator
         }
     }
 
-    public function addUser(User $user,Library $library): void
+    public function addUser(User $user, Library $library): void
     {
-       $users = $library->getUsers();
-       $users[] = $user;
-       $library->setUsers($users);
+        $users = $library->getUsers();
+        if (count($users) > 0) {
+            foreach ($users as $value) {
+                if ($value->getNationalCode() !== $user->getNationalCode()) $users[] = $user;
+            }
+        }
+        if (count($users) <= 0) $users[] = $user;
+        $library->setUsers($users);
     }
+
     public function createBook(): Book|string
     {
         try {
@@ -34,10 +41,41 @@ class Operator
         }
     }
 
-    public function addBook(Book $book,Library $library): void
+    public function addBook(Book $book, Library $library): void
     {
         $books = $library->getBooks();
-        $books[] = $book;
+        if (count($books) > 0) {
+            foreach ($books as $value) {
+                if ($value->getUCode() !== $book->getUCode()) $books[] = $book;
+            }
+        }
+        if (count($books) <= 0) $books[] = $book;
         $library->setBooks($books);
+    }
+    //index requests
+    public function requests(Library $library): array
+    {
+        return $library->getRequests();
+    }
+
+    //show request
+
+    public function request($id, Library $library): Request
+    {
+        $req = null ;
+        $requests = $library->getRequests();
+        foreach ($requests as $request) {
+            if ($request->getId() === $id)  $req = $request;
+        }
+        return $req;
+    }
+
+    public function checkRequest()
+    {
+        $books = (new Library())->getBooks();
+        $requests = $this->requests;
+        foreach ($requests as $book) {
+
+        }
     }
 }

@@ -4,7 +4,9 @@ class User
 {
 
 
-    public function __construct(private string $firstname, private string $lastname, private int $nationalCode, private string $birthdate, private array $books = []){}
+    public function __construct(private string $firstname, private string $lastname, private int $nationalCode, private string $birthdate, private array $books = [])
+    {
+    }
 
     /**
      * @return string
@@ -50,5 +52,14 @@ class User
     public function requestToRent()
     {
 
+    }
+
+    public function rentRequest(Book $book): string
+    {
+        $operator = new Operator();
+        $requests = $operator->getRequests();
+        $requests[] = $book;
+        $operator->setRequests($requests);
+        return 'request send successfully';
     }
 }

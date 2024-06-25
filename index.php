@@ -8,9 +8,11 @@ $operator = new Operator();
 $library = new Library();
 $library->setOperator($operator);
 //add user
-$user = $operator->createUser();
-$operator->addUser($user,$library);
+$user1 = $operator->createUser();
+$user2 = $operator->createUser();
+$operator->addUser($user1,$library);
+$operator->addUser($user2,$library);
 //add book
-$book = $operator->createBook();
-$operator->addBook($book,$library);
+//$book = $operator->createBook();
+//$operator->addBook($book,$library);
 var_dump($library);

@@ -5,7 +5,23 @@ class Library
     private array $users =[];
     private array $books =[];
     private Operator $operator ;
+    private array $requests = [];
 
+    /**
+     * @return array
+     */
+    public function getRequests(): array
+    {
+        return $this->requests;
+    }
+
+    /**
+     * @param array $requests
+     */
+    public function setRequests(array $requests): void
+    {
+        $this->requests = $requests;
+    }
     /**
      * @return Operator
      */

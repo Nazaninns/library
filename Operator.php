@@ -52,6 +52,7 @@ class Operator
         if (count($books) <= 0) $books[] = $book;
         $library->setBooks($books);
     }
+
     //index requests
     public function requests(Library $library): array
     {
@@ -62,20 +63,73 @@ class Operator
 
     public function request($id, Library $library): Request
     {
-        $req = null ;
+        $req = null;
         $requests = $library->getRequests();
         foreach ($requests as $request) {
-            if ($request->getId() === $id)  $req = $request;
+            if ($request->getId() === $id) $req = $request;
         }
         return $req;
     }
 
-    public function checkRequest()
+    public function checkRequest(Request $request, Library $library): bool
     {
-        $books = (new Library())->getBooks();
-        $requests = $this->requests;
-        foreach ($requests as $book) {
+        if ($this->checkUserBook($request->getUserNationalCode(), $library) && $this->checkBookVendor($request->getBookUCode(), $library)) return true;
+        return false;
+    }
 
+    public function updateRequestData(Request $request, Library $library): void
+    {
+        $users = $library->getUsers();
+        $books = $library->getBooks();
+        foreach ($users as $user) {
+            if ($request->getUserNationalCode() == $user->getNationalCode()) {
+                foreach ($books as $book) {
+                    if ($request->getBookUCode() == $book->getUCode()) {
+                        $userBooks = $user->getBooks();
+                        $userBooks[] = $book;
+                        $user->setBooks($userBooks);
+                        $bookVendor = $book->getVendor();
+                        $book->setVendor($bookVendor - 1);
+                    }
+                }
+            }
         }
     }
+
+    public function rentResult(Request $request, Library $library): string
+    {
+        if ($this->checkRequest($request, $library)) {
+            $this->updateRequestData($request, $library);
+            $request->setStatus('accept');
+            return 'rent accepted';
+        }
+        $request->setStatus('failed');
+        return 'rent failed';
+    }
+
+
+    public function checkUserBook($nationalCode, Library $library): bool
+    {
+        $bool = true;
+        $users = $library->getUsers();
+        foreach ($users as $user) {
+            if ($nationalCode === $user->getNationalCode()) {
+                if (count($user->getBooks()) >= 2) $bool = false;
+            }
+        }
+        return $bool;
+    }
+
+    public function checkBookVendor($uCode, Library $library): bool
+    {
+        $bool = true;
+        $books = $library->getBooks();
+        foreach ($books as $book) {
+            if ($uCode === $book->getUCode()) {
+                if ($book->getVendor() <= 0) $bool = false;
+            }
+        }
+        return $bool;
+    }
+
 }

@@ -48,18 +48,28 @@ class User
         return $this->books;
     }
 
+    /**
+     * @param array $books
+     */
+    public function setBooks(array $books): void
+    {
+        $this->books = $books;
+    }
+
 
     public function requestToRent()
     {
 
     }
 
-    public function rentRequest(Book $book): string
+    public function rentRequest(Book $book, Library $library): Request
     {
-        $operator = new Operator();
-        $requests = $operator->getRequests();
-        $requests[] = $book;
-        $operator->setRequests($requests);
-        return 'request send successfully';
+        $requests = $library->getRequests();
+        if (count($requests) <= 0) $id = 1;
+        else $id = count($requests) + 1;
+        $request = new Request($id, $this->nationalCode, $book->getUCode(), 'pending');
+        $requests[] = $request;
+        $library->setRequests($requests);
+        return $request;
     }
 }

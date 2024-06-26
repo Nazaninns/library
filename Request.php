@@ -1,5 +1,5 @@
 <?php
-
+namespace class\request;
 class Request
 {
     public function __construct(private int $id, private int $user_nationalCode, private string $book_uCode,private string $status)

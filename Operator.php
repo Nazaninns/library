@@ -1,4 +1,5 @@
 <?php
+namespace class\operator;
 require_once 'User.php';
 require_once 'Book.php';
 

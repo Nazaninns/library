@@ -1,5 +1,5 @@
 <?php
-
+namespace class\library;
 class Library
 {
     private array $users =[];

@@ -1,0 +1,19 @@
+{
+    "name": "nazaninns/library",
+    "description": "my first package about make library",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "nazaninns",
+            "email": "nazaninnsq@gmail.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "class\\" : "*"
+        }
+    }
+}

@@ -1,13 +1,16 @@
 <?php
 
+namespace class\book;
 class Book
 {
-    public function __construct(private string $title, private string $uCode, private string $author, private string $publishDate, private int $vendor){}
+    public function __construct(private string $title, private string $uCode, private string $author, private string $publishDate, private int $vendor)
+    {
+    }
 
     /**
      * @return string
      */
-    public  function getUCode(): string
+    public function getUCode(): string
     {
         return $this->uCode;
     }
@@ -15,7 +18,7 @@ class Book
     /**
      * @param int $vendor
      */
-    public  function setVendor(int $vendor): void
+    public function setVendor(int $vendor): void
     {
         $this->vendor = $vendor;
     }
